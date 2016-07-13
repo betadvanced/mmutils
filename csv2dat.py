@@ -117,15 +117,14 @@ test_dbs.usage = 'test reference.dat test.dat ips.txt'
 def gen_csv(f):
     """peek at rows from a csv and start yielding when we get past the comments
     to a row that starts with an int"""
-    def startswith_int(row):
-        try:
-            int(row[0][0])
-            return True
-        except (ValueError, IndexError):
-            return False
-
     cr = csv.reader(f)
-    return itertools.dropwhile(lambda x: not startswith_int(x), cr)
+    while True:
+        item = cr.next()
+        try:
+            int(item[0][0])
+        except:
+            return
+        yield item[0], item[1], item[2]
 
 
 def flatten_city(opts, args):
@@ -475,4 +474,3 @@ if __name__ == '__main__':
     rval = main()
     logging.shutdown()
     sys.exit(rval)
-
