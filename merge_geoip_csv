@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+
+from argparse import ArgumentParser
+import sys, os
+from csv import reader, writer, Sniffer, QUOTE_ALL
+from ipaddress import IPv6Address
+
+arg_parser = ArgumentParser()
+arg_parser.add_argument('-o', '--output', default=None,
+        help = 'Output to the specified file name (default is stdout)')
+arg_parser.add_argument('ipv4_csv', help = 'Maxmind\'s GeoIP IPv4 country file to merge')
+arg_parser.add_argument('ipv6_csv', help = 'Maxmind\'s GeoIP IPv6 country file to merge')
+
+args = arg_parser.parse_args()
+
+if args.output is None :
+    output = sys.stdout
+else :
+    output = open(args.output, 'w')
+
+ipv4_csv = open(args.ipv4_csv, 'r')
+ipv6_csv = open(args.ipv6_csv, 'r')
+
+# Sniff the format
+dialect = Sniffer().sniff(ipv6_csv.read(1024))
+ipv6_csv.seek(0)
+
+output_csv = writer(output, dialect, quoting = QUOTE_ALL)
+
+# For V4, we need to translate it to v6
+for row in reader(ipv4_csv, dialect) :
+    v6_start = '0:0:0:0:0:ffff:' + row[0]
+    v6_start_int = int(IPv6Address(unicode(v6_start)))
+    v6_end = '0:0:0:0:0:ffff:' + row[1]
+    v6_end_int = int(IPv6Address(unicode(v6_end)))
+    output_csv.writerow([
+        v6_start, v6_end,
+        v6_start_int, v6_end_int,
+        row[4], row[5],
+    ])
+
+for row in reader(ipv6_csv, dialect) :
+    output_csv.writerow(row)
+
+ipv4_csv.close()
+ipv6_csv.close()
+
+if not args.output is None :
+    output.close()
