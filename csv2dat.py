@@ -351,7 +351,7 @@ class CityRev1v6RadixTree(CityRev1RadixTree):
     usage = '-w mmcity6.dat mmcity6 GeoLiteCityv6.csv'
     cmd = 'mmcity6'
     seek_depth = 127
-    edition = pygeoip.const.CITY_EDITION_REV1
+    edition = pygeoip.const.CITY_EDITION_REV1_V6
     reclen = pygeoip.const.STANDARD_RECORD_LENGTH
     segreclen = pygeoip.const.SEGMENT_RECORD_LENGTH
 
