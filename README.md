@@ -80,3 +80,10 @@ Convert MaxMind Org CSV to .dat format:
     $ csv2dat.py -w mmorg.dat mmorg GeoIPOrg.csv
     wrote 378619-node trie with 303605 networks (45963 distinct labels) in 19 seconds
 
+Merge GeoIP Country v4 and v6 into single file
+    
+    $ merge_geoip_csv GeoIPv4CountryWhois.csv GeoIPv6.csv -o GeoIPv4v6.csv
+
+Merge GeoIP City v4 and v6 into single file
+
+    $ merge_geoip_city_csv -l GeoLiteCity-Location.csv GeoLiteCity-Blocks.csv GeoLiteCityv6.csv -o GeoLiteCityv4v6.csv
