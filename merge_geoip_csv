@@ -27,12 +27,26 @@ ipv6_csv.seek(0)
 
 output_csv = writer(output, dialect, quoting = QUOTE_ALL)
 
+lsnat_ip = (
+    "0:0:0:0:0:ffff:100.64.0.1",
+    "0:0:0:0:0:ffff:100.127.255.254", 
+    281472363659265,
+    281472367853566,
+    "TH",
+    "Thailand",
+)
+
 # For V4, we need to translate it to v6
+lsnat_inserted = False
 for row in reader(ipv4_csv, dialect) :
     v6_start = '0:0:0:0:0:ffff:' + row[0]
     v6_start_int = int(IPv6Address(unicode(v6_start)))
     v6_end = '0:0:0:0:0:ffff:' + row[1]
     v6_end_int = int(IPv6Address(unicode(v6_end)))
+    if not lsnat_inserted and (v6_start_int > lsnat_ip[2]) :
+        output_csv.writerow(lsnat_ip)
+        lsnat_inserted = True
+
     output_csv.writerow([
         v6_start, v6_end,
         v6_start_int, v6_end_int,
