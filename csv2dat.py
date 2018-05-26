@@ -124,7 +124,8 @@ def gen_csv(f):
             int(item[0][0])
         except:
             return
-        yield item[0], item[1], item[2]
+        yield item
+        #yield item[0], item[1], item[2], item[3]
 
 
 def flatten_city(opts, args):
