@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /root/geoip/mmutils
+cd ~/geoip/mmutils
 source env/bin/activate
 
 # Country
@@ -33,7 +33,7 @@ DATE=`date +%Y%m%d-%H%M`
 ./test.sh GeoIPv4v6-${DATE}.dat GeoLiteCityv4v6-${DATE}.dat || exit 5
 
 rm -f GeoIPv4v6.dat GeoLiteCityv4v6.dat
-ln -sf GeoIPv4v6-${DATE}.dat GeoIPv4v6.dat
-ln -sf GeoLiteCityv4v6-${DATE}.dat GeoLiteCityv4v6.dat
+ln -sf GeoIPv4v6-${DATE}.dat GeoIPv6.dat
+ln -sf GeoLiteCityv4v6-${DATE}.dat GeoLiteCityv6.dat
 
 exit 0

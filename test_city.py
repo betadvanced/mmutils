@@ -29,8 +29,8 @@ except (AddressValueError, NetmaskValueError):
         gir = gi.record_by_name(args.ip_or_name)
 
 if gir is not None:
-    pprint(gir)
-#    print(gir['country_code'])
+#    pprint(gir)
+    print(gir['country_code'])
 #    print(gir['country_code3'])
 #    print(gir['country_name'])
 #    print(gir['city'])
