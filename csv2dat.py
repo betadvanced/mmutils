@@ -20,6 +20,7 @@ cc_idx['--'] = cc_idx['']
 cc_idx['cw'] = cc_idx['an'] #netherlands antilles / curacao
 cc_idx['uk'] = cc_idx['gb'] #uk / great britain
 cc_idx['sx'] = cc_idx['fx'] #st. martin?
+cc_idx['xk'] = cc_idx['rs'] #kosovo / serbia
 
 def init_logger(opts):
     level = logging.INFO
