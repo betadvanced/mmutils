@@ -410,7 +410,7 @@ class CountryRadixTree(RadixTree):
             f.write(self.serialize_node(node.rhs))
 
         f.write(chr(0x00) * 3)
-        f.write('csv2dat.py') #.dat file comment - can be anything
+        f.write('csv2dat.py 20180000 Build') #.dat file comment - can be anything
         f.write(chr(0xFF) * 3)
         f.write(chr(self.edition))
         f.write(self.encode_rec(len(self.segments), self.segreclen))
